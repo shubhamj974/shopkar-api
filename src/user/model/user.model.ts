@@ -1,21 +1,31 @@
 import {
+  Table,
   Column,
   DataType,
-  HasMany,
   Model,
-  Table,
   ForeignKey,
   BelongsTo,
+  HasMany,
 } from 'sequelize-typescript';
+import { Role } from 'src/role/model/role.model';
+import { Address } from './user.address.model';
 import { Cart } from 'src/cart/model/cart.model';
 import { Order } from 'src/order/model/order.model';
 import { Wishlist } from 'src/wishlist/model/wishlist.model';
-import { Address } from './user.address.model';
-import { Role } from 'src/role/model/role.model';
 import { UserCreationAttrs } from '../interface/user.interface';
 
-@Table
+@Table({
+  tableName: 'users',
+  timestamps: true,
+})
 export class User extends Model<User, UserCreationAttrs> {
+  @Column({
+    type: DataType.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  })
+  declare id: number;
+
   @Column({ type: DataType.STRING, allowNull: false })
   declare firstName: string;
 
@@ -28,14 +38,11 @@ export class User extends Model<User, UserCreationAttrs> {
   @Column({ type: DataType.STRING, allowNull: false, unique: true })
   declare phone: string;
 
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-    // get() {
-    //   return undefined;
-    // },
-  })
+  @Column({ type: DataType.STRING, allowNull: false })
   declare password: string;
+
+  @Column({ type: DataType.STRING, allowNull: true })
+  declare refreshToken?: string;
 
   @ForeignKey(() => Role)
   @Column({ type: DataType.INTEGER, allowNull: false })

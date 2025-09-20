@@ -62,4 +62,8 @@ export class UserService {
       where: { email: email },
     });
   }
+
+  async updateRefreshToken(id: number, refreshToken: string): Promise<void> {
+    await this.userModel.update({ refreshToken }, { where: { id } });
+  }
 }

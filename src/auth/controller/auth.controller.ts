@@ -24,4 +24,16 @@ export class AuthController {
       return ApiResponse.error(err.message);
     }
   }
+
+  @Post('refresh')
+  async refresh(@Body('refreshToken') refreshToken: string) {
+    try {
+      return ApiResponse.success(
+        'Refresh token successfully',
+        this.authService.refreshToken(refreshToken),
+      );
+    } catch (error) {
+      return ApiResponse.error(error.message);
+    }
+  }
 }
