@@ -35,13 +35,13 @@ export class AuthService {
     const payload = { username: user.email, sub: user.id };
     const accessToken = await this.jwtService.signAsync(payload, {
       secret: this.configService.get<string>('JWT_SECRET'),
-      expiresIn: '15m',
+      expiresIn: '1m',
     });
 
     // Create long-lived refresh token
     const refreshToken = await this.jwtService.signAsync(payload, {
       secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
-      expiresIn: '1d',
+      expiresIn: '5m',
     });
     return {
       accessToken,
@@ -74,10 +74,9 @@ export class AuthService {
         { username: user.email, sub: user.id },
         {
           secret: this.configService.get<string>('JWT_SECRET'),
-          expiresIn: '15m',
+          expiresIn: '1m',
         },
       );
-
       return { accessToken: newAccessToken };
     } catch (error) {
       throw new BadRequestException('Invalid refresh token');

@@ -12,34 +12,40 @@ export class UserService {
     private userModel: typeof User,
     @InjectModel(Role, 'shubham')
     private roleModel: typeof Role,
-  ) {}
+  ) { }
 
   async createUser(dto: CreateUserDto) {
     const role = await this.roleModel.findByPk(dto.roleId);
-    if (!role) {
-      throw new BadRequestException('Invalid roleId');
+
+    if (!dto.email && !dto.phone) {
+      throw new BadRequestException('Either email or phone must be provided');
     }
 
-    const existingUser = await this.userModel.findOne({
-      where: { email: dto.email },
-    });
-    if (existingUser) {
-      throw new BadRequestException('Email already registered');
+    if(dto.email){
+      const existingUser = await this.userModel.findOne({
+        where: { email: dto.email },
+      });
+      if (existingUser) {
+        throw new BadRequestException('Email already registered');
+      }
+
     }
-    const existingPhone = await this.userModel.findOne({
-      where: { phone: dto.phone },
-    });
-    if (existingPhone) {
-      throw new BadRequestException('Phone already registered');
+    if(dto.phone){
+      const existingPhone = await this.userModel.findOne({
+        where: { phone: dto.phone },
+      });
+      if (existingPhone) {
+        throw new BadRequestException('Phone already registered');
+      }
     }
     const hashedPassword = await bcrypt.hash(dto.password, 10);
     const data = {
-      firstName: dto.firstName,
-      lastName: dto.lastName,
-      email: dto.email,
-      phone: dto.phone,
+      firstName: dto.firstName || null,
+      lastName: dto.lastName || null,
+      email: dto.email || null,
+      phone: dto.phone || null,
       password: hashedPassword,
-      roleId: dto.roleId,
+      roleId: dto.roleId || 1,
       isActive: dto.isActive ?? true,
       emailVerified: dto.emailVerified ?? false,
     };

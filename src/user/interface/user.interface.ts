@@ -1,10 +1,11 @@
 export interface UserCreationAttrs {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  email?: string | null;
+  phone?: string | null;
   password: string;
-  roleId: number;
+  roleId?: number | null;
   isActive?: boolean;
   emailVerified?: boolean;
 }
+

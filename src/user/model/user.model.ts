@@ -26,26 +26,26 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   declare id: number;
 
-  @Column({ type: DataType.STRING, allowNull: false })
-  declare firstName: string;
-
-  @Column({ type: DataType.STRING, allowNull: false })
-  declare lastName: string;
-
-  @Column({ type: DataType.STRING, allowNull: false, unique: true })
-  declare email: string;
-
-  @Column({ type: DataType.STRING, allowNull: false, unique: true })
-  declare phone: string;
-
-  @Column({ type: DataType.STRING, allowNull: false })
-  declare password: string;
+  @Column({ type: DataType.STRING, allowNull: true })
+  declare firstName: string | null;
 
   @Column({ type: DataType.STRING, allowNull: true })
-  declare refreshToken?: string;
+  declare lastName: string | null;
+
+  @Column({ type: DataType.STRING, allowNull: true, unique: true })
+  declare email: string | null;
+
+  @Column({ type: DataType.STRING, allowNull: true, unique: true })
+  declare phone: string | null;
+
+  @Column({ type: DataType.STRING, allowNull: true })
+  declare password: string
+
+  @Column({ type: DataType.STRING, allowNull: true})
+  declare refreshToken?: string | null;
 
   @ForeignKey(() => Role)
-  @Column({ type: DataType.INTEGER, allowNull: false })
+  @Column({ type: DataType.INTEGER, allowNull: true,defaultValue : 1 })
   declare roleId: number;
 
   @BelongsTo(() => Role)
