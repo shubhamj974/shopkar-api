@@ -5,31 +5,33 @@ import {
   Table,
   ForeignKey,
   BelongsTo,
+  HasMany,
 } from 'sequelize-typescript';
+import { CategoryCreationAttrs } from '../dto/category.dto';
 
 @Table
-export class Category extends Model<Category> {
+export class Category extends Model<Category , CategoryCreationAttrs> {
   @Column({
     type: DataType.STRING(100),
     allowNull: false,
     unique: true,
     comment: 'Category name',
   })
-  name: string;
+  declare name: string | null;
 
   @Column({
     type: DataType.TEXT,
     allowNull: true,
     comment: 'Description for category',
   })
-  description: string;
+  declare description: string | null;
 
   @Column({
     type: DataType.STRING,
     allowNull: true,
     comment: 'Category banner or thumbnail image URL',
   })
-  imageUrl: string;
+  declare imageUrl: string | null;
 
   @ForeignKey(() => Category)
   @Column({
@@ -37,7 +39,7 @@ export class Category extends Model<Category> {
     allowNull: true,
     comment: 'Parent category for subcategory structure',
   })
-  parentCategoryId: number;
+  declare parentCategoryId: number | null;
 
   @BelongsTo(() => Category, { foreignKey: 'parentCategoryId' })
   parentCategory: Category;
@@ -47,12 +49,16 @@ export class Category extends Model<Category> {
     defaultValue: 0,
     comment: 'Order for sorting display',
   })
-  displayOrder: number;
+  declare displayOrder: number | null;
 
   @Column({
     type: DataType.BOOLEAN,
     defaultValue: true,
     comment: 'Whether category is active',
   })
-  isActive: boolean;
+  declare isActive: boolean;
+
+  @HasMany(() => Category, 'parentCategoryId')
+  subcategories: Category[];
+
 }

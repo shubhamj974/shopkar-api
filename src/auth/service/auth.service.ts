@@ -35,13 +35,13 @@ export class AuthService {
     const payload = { username: user.email, sub: user.id };
     const accessToken = await this.jwtService.signAsync(payload, {
       secret: this.configService.get<string>('JWT_SECRET'),
-      expiresIn: '1m',
+      expiresIn: '10m',
     });
 
     // Create long-lived refresh token
     const refreshToken = await this.jwtService.signAsync(payload, {
       secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
-      expiresIn: '5m',
+      expiresIn: '8h',
     });
     return {
       accessToken,
@@ -74,7 +74,7 @@ export class AuthService {
         { username: user.email, sub: user.id },
         {
           secret: this.configService.get<string>('JWT_SECRET'),
-          expiresIn: '1m',
+          expiresIn: '10m',
         },
       );
       return { accessToken: newAccessToken };
