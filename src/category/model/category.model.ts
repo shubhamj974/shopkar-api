@@ -10,55 +10,56 @@ import {
 import { CategoryCreationAttrs } from '../dto/category.dto';
 
 @Table
-export class Category extends Model<Category , CategoryCreationAttrs> {
-  @Column({
-    type: DataType.STRING(100),
-    allowNull: false,
-    unique: true,
-    comment: 'Category name',
-  })
+export class Category extends Model<Category, CategoryCreationAttrs> {
+  @Column({ type: DataType.STRING, allowNull: false, unique: true })
   declare name: string | null;
 
-  @Column({
-    type: DataType.TEXT,
-    allowNull: true,
-    comment: 'Description for category',
-  })
+  @Column({ type: DataType.TEXT, allowNull: true })
   declare description: string | null;
 
-  @Column({
-    type: DataType.STRING,
-    allowNull: true,
-    comment: 'Category banner or thumbnail image URL',
-  })
+  @Column({ type: DataType.STRING, allowNull: true })
   declare imageUrl: string | null;
 
   @ForeignKey(() => Category)
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: true,
-    comment: 'Parent category for subcategory structure',
-  })
+  @Column({ type: DataType.INTEGER, allowNull: true })
   declare parentCategoryId: number | null;
+
+  @Column({type: DataType.INTEGER,defaultValue: 0})
+  declare displayOrder: number | null;
+
+  @Column({type: DataType.BOOLEAN,defaultValue: true })
+  declare isActive: boolean;
+
+  @Column({ type: DataType.STRING, allowNull: true, unique: true })
+  declare slug: string;
+
+  @Column({ type: DataType.JSON, allowNull: true })
+  declare filters: string;
+
+  @Column({ type: DataType.STRING, allowNull: true })
+  declare metaTitle: string;
+
+  @Column({ type: DataType.STRING, allowNull: true })
+  declare metaDescription: string;
+
+  @Column({ type: DataType.STRING, allowNull: true })
+  declare iconUrl: string;
+
+  @Column({ type: DataType.STRING, allowNull: true })
+  declare bannerUrl: string;
+
+  @Column({ type: DataType.BOOLEAN, defaultValue: true })
+  declare isFeatured: boolean;
+
+  @Column({ type: DataType.INTEGER, defaultValue: 0 })
+  declare createdBy: number;
+
+  @Column({ type: DataType.INTEGER, defaultValue: 0 })
+  declare updatedBy: number;
 
   @BelongsTo(() => Category, { foreignKey: 'parentCategoryId' })
   parentCategory: Category;
 
-  @Column({
-    type: DataType.INTEGER,
-    defaultValue: 0,
-    comment: 'Order for sorting display',
-  })
-  declare displayOrder: number | null;
-
-  @Column({
-    type: DataType.BOOLEAN,
-    defaultValue: true,
-    comment: 'Whether category is active',
-  })
-  declare isActive: boolean;
-
   @HasMany(() => Category, 'parentCategoryId')
   subcategories: Category[];
-
 }

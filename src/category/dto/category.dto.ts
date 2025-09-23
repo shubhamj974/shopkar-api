@@ -57,6 +57,42 @@ export class CategoryDto {
   @ValidateNested({ each: true })
   @Type(() => SubCategoryDto)
   subcategories?: SubCategoryDto[];
+
+  @IsOptional()
+  @IsArray()
+  slug?: string[];
+
+  @IsOptional()
+  @IsArray()
+  filters?: string[];
+
+  @IsOptional()
+  @IsString()
+  metaTitle?: string;
+
+  @IsOptional()
+  @IsString()
+  metaDescription?: string;
+
+  @IsOptional()
+  @IsString()
+  iconUrl?: string;
+
+  @IsOptional()
+  @IsString()
+  bannerUrl?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isFeatured?: boolean;
+
+  @IsOptional()
+   @IsNumber()
+  createdBy?: number;
+
+  @IsOptional()
+   @IsNumber()
+  updatedBy?: number;
 }
 
 
@@ -68,4 +104,13 @@ export interface CategoryCreationAttrs {
   displayOrder?: number;
   isActive?: boolean;
   parentCategoryId?: number | null;
+  slug?: string[] | null;
+  filters?: string[] | null;
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  iconUrl?: string | null;
+  bannerUrl?: string | null;
+  isFeatured?: boolean | null;
+  createdBy?: number | null;
+  updatedBy?: number | null;
 }

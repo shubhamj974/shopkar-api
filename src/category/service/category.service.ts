@@ -32,6 +32,15 @@ export class CategoryService {
                 displayOrder: params.displayOrder || 0,
                 isActive: params.isActive !== undefined ? params.isActive : true,
                 parentCategoryId: null,
+                slug : params.slug || null,
+                filters : params.filters || null,
+                metaTitle : params.metaTitle || null,
+                metaDescription : params.metaDescription || null,
+                iconUrl : params.iconUrl || null,
+                bannerUrl : params.bannerUrl || null,
+                isFeatured : params.isFeatured || null,
+                createdBy : params.createdBy || null,
+                updatedBy : params.updatedBy || null
             };
             const parent = await this.categoryModel.create(parentPayload, { transaction });
             if (params.subcategories && params.subcategories.length) {
@@ -50,6 +59,15 @@ export class CategoryService {
                         displayOrder: sub.displayOrder || 0,
                         isActive: sub.isActive !== undefined ? sub.isActive : true,
                         parentCategoryId: parent.id,
+                        slug : params.slug || null,
+                        filters : params.filters || null,
+                        metaTitle : params.metaTitle || null,
+                        metaDescription : params.metaDescription || null,
+                        iconUrl : params.iconUrl || null,
+                        bannerUrl : params.bannerUrl || null,
+                        isFeatured : params.isFeatured || null,
+                        createdBy : params.createdBy || null,
+                        updatedBy : params.updatedBy || null
                     };
 
                     const subcat = await this.categoryModel.create(childPayload, { transaction });
@@ -70,6 +88,15 @@ export class CategoryService {
                                 displayOrder: nested.displayOrder || 0,
                                 isActive: nested.isActive !== undefined ? nested.isActive : true,
                                 parentCategoryId: subcat.id,
+                                slug : params.slug || null,
+                                filters : params.filters || null,
+                                metaTitle : params.metaTitle || null,
+                                metaDescription : params.metaDescription || null,
+                                iconUrl : params.iconUrl || null,
+                                bannerUrl : params.bannerUrl || null,
+                                isFeatured : params.isFeatured || null,
+                                createdBy : params.createdBy || null,
+                                updatedBy : params.updatedBy || null
                             };
 
                             await this.categoryModel.create(nestedPayload, { transaction });
