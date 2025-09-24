@@ -29,6 +29,8 @@ export class ProductService {
                 ratingsCount: params.ratingsCount || 0,
                 reviewsCount: params.reviewsCount || 0,
                 soldCount: params.soldCount || 0,
+                bankOffer: params.bankOffer,
+                exchangeOffer: params.exchangeOffer || null,
                 createdBy: params.createdBy || null,
                 updatedBy: params.updatedBy || null,
             }

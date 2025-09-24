@@ -108,10 +108,10 @@ export class Product extends Model<Product, IProduct> {
   @Column({ type: DataType.INTEGER, allowNull: true, defaultValue: 0 })
   createdBy: number;
 
-  @Column({ type: DataType.INTEGER, allowNull: true, defaultValue: null })
+  @Column({ type: DataType.INTEGER, allowNull: true, defaultValue: 0 })
   exchangeOffer: number;
 
-  @Column({ type: DataType.BOOLEAN, allowNull: true, defaultValue: 0 })
+  @Column({ type: DataType.BOOLEAN, defaultValue: false })
   bankOffer: boolean;
 
   @Column({ type: DataType.INTEGER, allowNull: true, defaultValue: 0 })
