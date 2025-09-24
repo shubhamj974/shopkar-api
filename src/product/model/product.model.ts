@@ -10,7 +10,7 @@ import { Category } from 'src/category/model/category.model';
 import { IProduct } from '../dto/product.dto';
 
 @Table
-export class Product extends Model<Product , IProduct> {
+export class Product extends Model<Product, IProduct> {
   @Column({ type: DataType.STRING, allowNull: false, unique: true })
   name: string;
 
@@ -102,11 +102,17 @@ export class Product extends Model<Product , IProduct> {
   @Column({ type: DataType.STRING, allowNull: true })
   metaDescription: string | null;
 
-  @Column({type: DataType.JSON,allowNull: true })
+  @Column({ type: DataType.JSON, allowNull: true })
   images: string[] | null;
 
   @Column({ type: DataType.INTEGER, allowNull: true, defaultValue: 0 })
   createdBy: number;
+
+  @Column({ type: DataType.INTEGER, allowNull: true, defaultValue: null })
+  exchangeOffer: number;
+
+  @Column({ type: DataType.BOOLEAN, allowNull: true, defaultValue: 0 })
+  bankOffer: boolean;
 
   @Column({ type: DataType.INTEGER, allowNull: true, defaultValue: 0 })
   updatedBy: number;

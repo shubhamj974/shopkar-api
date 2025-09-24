@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Product } from '../model/product.model';
 import { ProductDto } from '../dto/product.dto';
+import { Category } from 'src/category/model/category.model';
 
 @Injectable()
 export class ProductService {
@@ -38,7 +39,17 @@ export class ProductService {
 
     }
 
-    async getProduct() { }
+    async getProduct() {
+        try {   
+            return await this.productModel.findAndCountAll({
+                include : {
+                    model : Category
+                }
+            });               
+        } catch (error) {
+            throw new BadRequestException(error.message || 'Failed to fetch products')
+        }
+    }
 
     async findOne(id) { }
     async update(id, params) { }

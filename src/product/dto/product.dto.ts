@@ -133,6 +133,14 @@ export class ProductDto {
 
     @IsNumber()
     @IsOptional()
+    exchangeOffer : number
+
+    @IsBoolean()
+    @IsOptional()
+    bankOffer : boolean
+
+    @IsNumber()
+    @IsOptional()
     createdBy?: number;
 
     @IsNumber()
@@ -175,4 +183,6 @@ export interface IProduct {
   metaDescription?: string | null;
   createdBy?: number | null;
   updatedBy?: number | null;
+  exchangeOffer?: number | null;
+  bankOffer?: boolean
 }
