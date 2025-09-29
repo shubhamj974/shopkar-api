@@ -34,13 +34,9 @@ export class CategoryService {
                 parentCategoryId: null,
                 slug : params.slug || null,
                 filters : params.filters || null,
-                metaTitle : params.metaTitle || null,
-                metaDescription : params.metaDescription || null,
                 iconUrl : params.iconUrl || null,
                 bannerUrl : params.bannerUrl || null,
                 isFeatured : params.isFeatured || null,
-                createdBy : params.createdBy || null,
-                updatedBy : params.updatedBy || null
             };
             const parent = await this.categoryModel.create(parentPayload, { transaction });
             if (params.subcategories && params.subcategories.length) {
@@ -61,13 +57,10 @@ export class CategoryService {
                         parentCategoryId: parent.id,
                         slug : params.slug || null,
                         filters : params.filters || null,
-                        metaTitle : params.metaTitle || null,
-                        metaDescription : params.metaDescription || null,
                         iconUrl : params.iconUrl || null,
                         bannerUrl : params.bannerUrl || null,
                         isFeatured : params.isFeatured || null,
-                        createdBy : params.createdBy || null,
-                        updatedBy : params.updatedBy || null
+                       
                     };
 
                     const subcat = await this.categoryModel.create(childPayload, { transaction });
@@ -90,13 +83,9 @@ export class CategoryService {
                                 parentCategoryId: subcat.id,
                                 slug : params.slug || null,
                                 filters : params.filters || null,
-                                metaTitle : params.metaTitle || null,
-                                metaDescription : params.metaDescription || null,
                                 iconUrl : params.iconUrl || null,
                                 bannerUrl : params.bannerUrl || null,
                                 isFeatured : params.isFeatured || null,
-                                createdBy : params.createdBy || null,
-                                updatedBy : params.updatedBy || null
                             };
 
                             await this.categoryModel.create(nestedPayload, { transaction });

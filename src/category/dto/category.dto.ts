@@ -68,14 +68,6 @@ export class CategoryDto {
 
   @IsOptional()
   @IsString()
-  metaTitle?: string;
-
-  @IsOptional()
-  @IsString()
-  metaDescription?: string;
-
-  @IsOptional()
-  @IsString()
   iconUrl?: string;
 
   @IsOptional()
@@ -86,13 +78,6 @@ export class CategoryDto {
   @IsBoolean()
   isFeatured?: boolean;
 
-  @IsOptional()
-   @IsNumber()
-  createdBy?: number;
-
-  @IsOptional()
-   @IsNumber()
-  updatedBy?: number;
 }
 
 
@@ -106,11 +91,7 @@ export interface CategoryCreationAttrs {
   parentCategoryId?: number | null;
   slug?: string[] | null;
   filters?: string[] | null;
-  metaTitle?: string | null;
-  metaDescription?: string | null;
   iconUrl?: string | null;
   bannerUrl?: string | null;
   isFeatured?: boolean | null;
-  createdBy?: number | null;
-  updatedBy?: number | null;
 }

@@ -37,12 +37,6 @@ export class Category extends Model<Category, CategoryCreationAttrs> {
   declare filters: string;
 
   @Column({ type: DataType.STRING, allowNull: true })
-  declare metaTitle: string;
-
-  @Column({ type: DataType.STRING, allowNull: true })
-  declare metaDescription: string;
-
-  @Column({ type: DataType.STRING, allowNull: true })
   declare iconUrl: string;
 
   @Column({ type: DataType.STRING, allowNull: true })
@@ -50,12 +44,6 @@ export class Category extends Model<Category, CategoryCreationAttrs> {
 
   @Column({ type: DataType.BOOLEAN, defaultValue: true })
   declare isFeatured: boolean;
-
-  @Column({ type: DataType.INTEGER, defaultValue: 0 })
-  declare createdBy: number;
-
-  @Column({ type: DataType.INTEGER, defaultValue: 0 })
-  declare updatedBy: number;
 
   @BelongsTo(() => Category, { foreignKey: 'parentCategoryId' })
   parentCategory: Category;

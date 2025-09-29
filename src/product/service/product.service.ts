@@ -13,43 +13,64 @@ export class ProductService {
 
     async create(params: ProductDto) {
         try {
+            const corePayload = {
+                name: params.name,
+                price: params.price,
+                stock: params.stock ?? 0,
+                categoryId: params.categoryId,
+                isActive: params.isActive ?? true,
+            };
+
+            const detailsPayload = {
+                description: params.details?.description || null,
+                brand: params.details?.brand || null,
+                sku: params.details?.sku || null,
+                barcode: params.details?.barcode || null,
+                mrp: params.details?.mrp || null,
+                discountPercent: params.details?.discountPercent || null,
+                discountStartDate: params.details?.discountStartDate || null,
+                discountEndDate: params.details?.discountEndDate || null,
+                imageUrl: params.details?.imageUrl || null,
+                images: params.details?.images || null,
+                averageRating: params.details?.averageRating ?? 0,
+                ratingsCount: params.details?.ratingsCount ?? 0,
+                reviewsCount: params.details?.reviewsCount ?? 0,
+                soldCount: params.details?.soldCount ?? 0,
+                isFeatured: params.details?.isFeatured ?? false,
+                isBestSeller: params.details?.isBestSeller ?? false,
+                bankOffer: params.details?.bankOffer ?? false,
+                exchangeOffer: params.details?.exchangeOffer ?? 0,
+                spec: params.details?.spec || null,
+                dimensions: params.details?.dimensions || null,
+                weight: params.details?.weight || null,
+                colorOptions: params.details?.colorOptions || null,
+                sizeOptions: params.details?.sizeOptions || null,
+                warranty: params.details?.warranty || null,
+                tags: params.details?.tags || null,
+            };
+
+            // Merge core + details
             const payload = {
-                ...params,
-                spec: params.spec || null,
-                images: params.images || null,
-                colorOptions: params.colorOptions || null,
-                sizeOptions: params.sizeOptions || null,
-                tags: params.tags || null,
-                isActive: params.isActive !== undefined ? params.isActive : true,
-                isFeatured: params.isFeatured || false,
-                isBestSeller: params.isBestSeller || false,
-                stock: params.stock || 0,
-                discountPercent: params.discountPercent || 0,
-                averageRating: params.averageRating || 0,
-                ratingsCount: params.ratingsCount || 0,
-                reviewsCount: params.reviewsCount || 0,
-                soldCount: params.soldCount || 0,
-                bankOffer: params.bankOffer,
-                exchangeOffer: params.exchangeOffer || null,
-                createdBy: params.createdBy || null,
-                updatedBy: params.updatedBy || null,
-            }
-            return await this.productModel.create(payload)
+                ...corePayload,
+                details: detailsPayload,
+            };
+
+            return await this.productModel.create(payload);
         } catch (error) {
             throw new BadRequestException(error.message || 'Failed to create product');
         }
-
     }
 
     async getProduct() {
-        try {   
-            return await this.productModel.findAndCountAll({
-                include : {
-                    model : Category
-                }
-            });               
+        try {
+            const result = await this.productModel.findAndCountAll({
+                include: {
+                    model: Category,
+                },
+            });
+            return await result;
         } catch (error) {
-            throw new BadRequestException(error.message || 'Failed to fetch products')
+            throw new BadRequestException(error.message || 'Failed to fetch products');
         }
     }
 
