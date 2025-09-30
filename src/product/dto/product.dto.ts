@@ -21,7 +21,6 @@ export class DetailsDto {
   @IsOptional() @Type(() => Date) discountStartDate?: Date;
   @IsOptional() @Type(() => Date) discountEndDate?: Date;
   @IsOptional() @IsString() imageUrl?: string;
-  @IsOptional() @IsArray() @IsString({ each: true }) images?: string[];
   @IsOptional() @IsNumber() averageRating?: number;
   @IsOptional() @IsNumber() ratingsCount?: number;
   @IsOptional() @IsNumber() reviewsCount?: number;
@@ -31,10 +30,6 @@ export class DetailsDto {
   @IsOptional() @IsBoolean() bankOffer?: boolean;
   @IsOptional() @IsNumber() exchangeOffer?: number;
   @IsOptional() @IsArray() @IsString({ each: true }) spec?: string[];
-  @IsOptional() dimensions?: { length: number; width: number; height: number; unit?: string };
-  @IsOptional() @IsNumber() weight?: number;
-  @IsOptional() @IsArray() @IsString({ each: true }) colorOptions?: string[];
-  @IsOptional() @IsArray() @IsString({ each: true }) sizeOptions?: string[];
   @IsOptional() @IsString() warranty?: string;
   @IsOptional() @IsArray() @IsString({ each: true }) tags?: string[];
 }
@@ -73,7 +68,6 @@ export interface IProduct {
     discountStartDate?: Date | null;
     discountEndDate?: Date | null;
     imageUrl?: string | null;
-    images?: string[] | null;
     averageRating?: number | null;
     ratingsCount?: number | null;
     reviewsCount?: number | null;
@@ -83,10 +77,6 @@ export interface IProduct {
     bankOffer?: boolean | null;
     exchangeOffer?: number | null;
     spec?: string[] | null;
-    dimensions?: { length: number; width: number; height: number; unit?: string } | null;
-    weight?: number | null;
-    colorOptions?: string[] | null;
-    sizeOptions?: string[] | null;
     warranty?: string | null;
     tags?: string[] | null;
   } | null;

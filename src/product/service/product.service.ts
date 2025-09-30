@@ -31,7 +31,6 @@ export class ProductService {
                 discountStartDate: params.details?.discountStartDate || null,
                 discountEndDate: params.details?.discountEndDate || null,
                 imageUrl: params.details?.imageUrl || null,
-                images: params.details?.images || null,
                 averageRating: params.details?.averageRating ?? 0,
                 ratingsCount: params.details?.ratingsCount ?? 0,
                 reviewsCount: params.details?.reviewsCount ?? 0,
@@ -41,10 +40,6 @@ export class ProductService {
                 bankOffer: params.details?.bankOffer ?? false,
                 exchangeOffer: params.details?.exchangeOffer ?? 0,
                 spec: params.details?.spec || null,
-                dimensions: params.details?.dimensions || null,
-                weight: params.details?.weight || null,
-                colorOptions: params.details?.colorOptions || null,
-                sizeOptions: params.details?.sizeOptions || null,
                 warranty: params.details?.warranty || null,
                 tags: params.details?.tags || null,
             };
