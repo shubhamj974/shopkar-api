@@ -4,13 +4,13 @@ import { ApiResponse } from 'src/common/utils/response.util';
 import { ProductService } from '../service/product.service';
 import { CreateProductColorOptionDto, ProductDto, ProductExchangeOptionDto, ProductImageDto, ProductOfferDto, ProductOtherDetailsDto, ProductReviewDto } from '../dto/product.dto';
 
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 @Controller('products')
 export class ProductController {
     constructor(private readonly productService: ProductService) { }
 
     @Get()
-    async getCategory() {
+    async getProduct() {
         try {
             return ApiResponse.success(
                 'Product fetch successfully.',
@@ -174,6 +174,20 @@ export class ProductController {
             }
             const res = await this.productService.productReview(body)
             return ApiResponse.success('Product review is created successfully.', res)
+        } catch (error) {
+            return ApiResponse.error(error.message || error)
+        }
+    }
+
+
+     @Post('other-details')
+    async productDetails(@Body() body: ProductOtherDetailsDto) {
+        try {
+            if (!body) {
+                throw new BadRequestException('Invalid params!')
+            }
+            const res = await this.productService.productOtherDetails(body)
+            return ApiResponse.success('Product other details is created successfully.', res)
         } catch (error) {
             return ApiResponse.error(error.message || error)
         }

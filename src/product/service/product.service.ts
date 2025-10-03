@@ -77,15 +77,37 @@ export class ProductService {
     async getProduct() {
         try {
             const result = await this.productModel.findAndCountAll({
-                include: {
-                    model: Category,
-                },
+                include: [
+                    {
+                        model: Category,
+                    },
+                    {
+                        model: ProductColorOption,
+                    },
+                    {
+                        model: ProductExchangeOption,
+                    },
+                    {
+                        model: ProductImage,
+                    },
+                    {
+                        model: ProductOffer,
+                    },
+                    {
+                        model: ProductOtherDetails,
+                    },
+                    {
+                        model: ProductReview,
+                    },
+                ],
             });
-            return await result;
+
+            return result;
         } catch (error) {
             throw new BadRequestException(error.message || 'Failed to fetch products');
         }
     }
+
 
     async findOne(id) { }
     async update(id, params) { }
