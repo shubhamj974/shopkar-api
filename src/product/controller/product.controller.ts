@@ -4,13 +4,13 @@ import { ApiResponse } from 'src/common/utils/response.util';
 import { ProductService } from '../service/product.service';
 import { CreateProductColorOptionDto, ProductDto, ProductExchangeOptionDto, ProductImageDto, ProductOfferDto, ProductOtherDetailsDto, ProductReviewDto } from '../dto/product.dto';
 
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 @Controller('products')
 export class ProductController {
     constructor(private readonly productService: ProductService) { }
 
     @Get()
-    async getProduct() {
+    async getAllProduct() {
         try {
             return ApiResponse.success(
                 'Product fetch successfully.',
@@ -24,6 +24,16 @@ export class ProductController {
     @Get(':id')
     findOne(@Param('id', ParseIntPipe) id: number) {
         return this.productService.findOne(id);
+    }
+
+    @Get(':id/product')
+    async getProductById(@Param('id', ParseIntPipe) id: number) {
+        try {
+            const res = await this.productService.findProductById(id);
+            return ApiResponse.success('Product data.', res)
+        } catch (error) {
+            return ApiResponse.error(error.message || error)
+        }
     }
 
     @Get(':id/colors')
@@ -180,7 +190,7 @@ export class ProductController {
     }
 
 
-     @Post('other-details')
+    @Post('other-details')
     async productDetails(@Body() body: ProductOtherDetailsDto) {
         try {
             if (!body) {

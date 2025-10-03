@@ -80,6 +80,26 @@ export class ProductService {
                 include: [
                     {
                         model: Category,
+                    }
+
+                ],
+            });
+
+            return result;
+        } catch (error) {
+            throw new BadRequestException(error.message || 'Failed to fetch products');
+        }
+    }
+
+    async findProductById(id: number) {
+        try {
+            const result = await this.productModel.findAndCountAll({
+                where: {
+                    id: id
+                },
+                include: [
+                    {
+                        model: Category,
                     },
                     {
                         model: ProductColorOption,
