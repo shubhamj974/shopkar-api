@@ -12,27 +12,27 @@ import { IProduct } from '../dto/product.dto';
 @Table
 export class Product extends Model<Product, IProduct> {
   @Column({ type: DataType.STRING, allowNull: false, unique: true })
-  name: string;
+  declare name: string;
 
   @Column({ type: DataType.FLOAT, allowNull: false, validate: { min: 0 } })
-  price: number | null;
+  declare price: number | null;
 
   @Column({ type: DataType.INTEGER, allowNull: false, defaultValue: 0 })
-  stock: number;
+  declare stock: number;
 
   @ForeignKey(() => Category)
   @Column({ type: DataType.INTEGER, allowNull: false })
-  categoryId: number;
+  declare categoryId: number;
 
   @BelongsTo(() => Category)
-  category: Category;
+  declare category: Category;
 
   @Column({ type: DataType.BOOLEAN, defaultValue: true })
-  isActive: boolean;
+  declare isActive: boolean;
 
   // JSON column for flexible attributes
   @Column({ type: DataType.JSON, allowNull: true })
-  details: {
+  declare details: {
     isBestSeller?: boolean;
     averageRating?: number;
     ratingsCount?: number;

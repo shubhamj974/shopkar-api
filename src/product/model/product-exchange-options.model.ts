@@ -1,24 +1,25 @@
 import { Table, ForeignKey, Column, DataType, Model, BelongsTo } from "sequelize-typescript";
 import { Product } from "./product.model";
+import { IProductExchangeOption } from "../dto/product.dto";
 
 @Table
-export class ProductExchangeOption extends Model<ProductExchangeOption> {
+export class ProductExchangeOption extends Model<ProductExchangeOption , IProductExchangeOption> {
   @ForeignKey(() => Product)
   @Column({ type: DataType.INTEGER, allowNull: false })
-  productId: number;
+  declare productId: number;
 
   @BelongsTo(() => Product)
-  product: Product;
+  declare product: Product;
 
   @Column({ type: DataType.STRING })
-  type: string;
+  declare type: string;
 
   @Column({ type: DataType.STRING })
-  price: string;
+  declare price: string;
 
   @Column({ type: DataType.BOOLEAN, defaultValue: true })
-  available: boolean;
+  declare available: boolean;
 
   @Column({ type: DataType.STRING })
-  note: string;
+  declare note: string;
 }

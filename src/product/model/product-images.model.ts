@@ -1,18 +1,19 @@
 import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
 import { Product } from "./product.model";
+import { IProductImage } from "../dto/product.dto";
 
 @Table
-export class ProductImage extends Model<ProductImage> {
+export class ProductImage extends Model<ProductImage,IProductImage> {
   @ForeignKey(() => Product)
   @Column({ type: DataType.INTEGER, allowNull: false })
-  productId: number;
+  declare productId: number;
 
   @BelongsTo(() => Product)
-  product: Product;
+  declare product: Product;
 
   @Column({ type: DataType.STRING, allowNull: false })
-  imageUrl: string;
+  declare imageUrl: string;
 
   @Column({ type: DataType.BOOLEAN, defaultValue: false })
-  isPrimary: boolean;
+  declare isPrimary: boolean;
 }

@@ -1,42 +1,43 @@
 import { Table, ForeignKey, Column, DataType,Model, BelongsTo } from "sequelize-typescript";
 import { Product } from "./product.model";
+import { IProductReview } from "../dto/product.dto";
 
 @Table
-export class ProductReview extends Model<ProductReview> {
+export class ProductReview extends Model<ProductReview,IProductReview> {
   @ForeignKey(() => Product)
   @Column({ type: DataType.INTEGER, allowNull: false })
-  productId: number;
+  declare productId: number;
 
   @BelongsTo(() => Product)
-  product: Product;
+  declare product: Product;
 
   @Column({ type: DataType.INTEGER, allowNull: false })
-  rating: number;
+  declare rating: number;
 
   @Column({ type: DataType.STRING })
-  title: string;
+  declare title: string;
 
   @Column({ type: DataType.TEXT })
-  text: string;
+  declare text: string;
 
   @Column({ type: DataType.STRING })
-  reviewer: string;
+  declare reviewer: string;
 
   @Column({ type: DataType.BOOLEAN, defaultValue: false })
-  verified: boolean;
+  declare verified: boolean;
 
   @Column({ type: DataType.STRING })
-  location: string;
+  declare location: string;
 
   @Column({ type: DataType.STRING })
-  timeAgo: string;
+  declare timeAgo: string;
 
   @Column({ type: DataType.INTEGER })
-  helpfulVotes: number;
+  declare helpfulVotes: number;
 
   @Column({ type: DataType.INTEGER })
-  unhelpfulVotes: number;
+  declare unhelpfulVotes: number;
 
   @Column({ type: DataType.STRING })
-  permalink: string;
+  declare permalink: string;
 }

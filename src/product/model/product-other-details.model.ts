@@ -1,45 +1,46 @@
 import { Table, ForeignKey, Column, DataType, Model, BelongsTo } from "sequelize-typescript";
 import { Product } from "./product.model";
+import { IProductOtherDetails } from "../dto/product.dto";
 
 @Table
-export class ProductOtherDetails extends Model<ProductOtherDetails> {
+export class ProductOtherDetails extends Model<ProductOtherDetails,IProductOtherDetails> {
     @ForeignKey(() => Product)
     @Column({ type: DataType.INTEGER, allowNull: false })
-    productId: number;
+    declare productId: number;
 
     @BelongsTo(() => Product)
-    product: Product;
+    declare product: Product;
 
     @Column({ type: DataType.FLOAT })
-    protectFee: number;
+    declare protectFee: number;
 
     @Column({ type: DataType.STRING })
-    deliveryEstimate: string;
+    declare deliveryEstimate: string;
 
     @Column({ type: DataType.JSON }) // array of strings
-    breadcrumbs: string[];
+    declare breadcrumbs: string[];
 
     @Column({ type: DataType.JSON }) // highlights list
-    highlights: string[];
+    declare highlights: string[];
 
     @Column({ type: DataType.JSON }) // storage options
-    storageOptions: string[];
+    declare storageOptions: string[];
 
     @Column({ type: DataType.JSON }) // description text
-    description: string;
+    declare description: string;
 
     @Column({ type: DataType.JSON }) // delivery info object
-    deliveryInfo: any;
+    declare deliveryInfo: any;
 
     @Column({ type: DataType.JSON }) // payment options
-    paymentOptions: any;
+    declare paymentOptions: any;
 
     @Column({ type: DataType.JSON }) // seller info
-    seller: any;
+    declare seller: any;
 
     @Column({ type: DataType.JSON }) // warranty info
-    warranty: any;
+    declare warranty: any;
 
     @Column({ type: DataType.JSON }) // other attributes like general, dimensions, etc.
-    attributes: any;
+    declare attributes: any;
 }

@@ -1,18 +1,19 @@
 import { Table, ForeignKey, Column, DataType, BelongsTo, Model } from "sequelize-typescript";
 import { Product } from "./product.model";
+import { IProductOffer } from "../dto/product.dto";
 
 @Table
-export class ProductOffer extends Model<ProductOffer> {
+export class ProductOffer extends Model<ProductOffer , IProductOffer> {
   @ForeignKey(() => Product)
   @Column({ type: DataType.INTEGER, allowNull: false })
-  productId: number;
+  declare productId: number;
 
   @BelongsTo(() => Product)
-  product: Product;
+  declare product: Product;
 
   @Column({ type: DataType.STRING, allowNull: false })
-  type: string;
+  declare type: string;
 
   @Column({ type: DataType.TEXT, allowNull: false })
-  description: string;
+  declare description: string;
 }
