@@ -93,7 +93,7 @@ export class ProductService {
 
     async findProductById(id: number) {
         try {
-            const result = await this.productModel.findAndCountAll({
+            const result = await this.productModel.findOne({
                 where: {
                     id: id
                 },
