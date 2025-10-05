@@ -5,10 +5,11 @@ import { ApiResponse } from 'src/common/utils/response.util';
 import { Response } from 'express';
 import { Request } from 'express';
 import { JwtAuthGuard } from '../jwt.auth.guard';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private configService : ConfigService) { }
 
   @Post('login')
   async login(@Body() body: loginDto, @Res({ passthrough: true }) res: Response) {
@@ -20,10 +21,10 @@ export class AuthController {
       }
       const { accessToken, refreshToken, user } = await this.authService.login(body);
       res.cookie('refreshToken', refreshToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'strict',
-
+        httpOnly: true, 
+        secure:this.configService.get<string>('ENV') === 'production', 
+        sameSite: this.configService.get<string>('ENV') === 'production' ? 'none' : 'lax', 
+        path: '/', 
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
 
@@ -54,9 +55,9 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Post('validate')
-  async validate(@Body() body){
+  async validate(@Body() body) {
     try {
-      if(!body.accessToken){
+      if (!body.accessToken) {
         throw new BadRequestException('Invalid params.')
       }
       return ApiResponse.success(
